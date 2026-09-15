@@ -72,7 +72,7 @@ function HomePage() {
               >
                 <a href="https://wa.me/971588236312">
                   <img
-                    src="/whatsapp.webp"
+                    src={`${import.meta.env.BASE_URL}whatsapp.webp`}
                     alt=""
                     aria-hidden="true"
                     className="size-5 object-contain"

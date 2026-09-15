@@ -56,7 +56,7 @@ function ContactPage() {
                 <div key={label} className="flex gap-4 border-b border-border py-4 items-center">
                   {whatsapp ? (
                     <img
-                      src="/whatsapp.webp"
+                      src={`${import.meta.env.BASE_URL}whatsapp.webp`}
                       alt=""
                       aria-hidden="true"
                       className="size-8 shrink-0 object-contain"

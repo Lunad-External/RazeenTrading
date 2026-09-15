@@ -14,7 +14,7 @@ export function BrandMark() {
   return (
     <Link to="/" aria-label="Razeen home" className="flex shrink-0 items-center">
       <img
-        src="/razeenlogo.jpg"
+        src={`${import.meta.env.BASE_URL}razeenlogo.jpg`}
         alt="Razeen Building Materials Trading LLC"
         width={320}
         height={100}
@@ -97,7 +97,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <div className="grid gap-10 border-b border-primary-foreground/20 pb-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <img
-                src="/razeenlogo.jpg"
+                src={`${import.meta.env.BASE_URL}razeenlogo.jpg`}
                 alt="Razeen Building Materials Trading LLC"
                 width={320}
                 height={100}
@@ -149,7 +149,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
         aria-label="Chat with Razeen on WhatsApp"
         className="fixed bottom-20 right-5 z-50 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 md:bottom-6"
       >
-        <img src="/whatsapp.webp" alt="" aria-hidden="true" className="size-12 object-contain" />
+        <img
+          src={`${import.meta.env.BASE_URL}whatsapp.webp`}
+          alt=""
+          aria-hidden="true"
+          className="size-12 object-contain"
+        />
       </a>
       {/* <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-border bg-background p-2 md:hidden">
         <a

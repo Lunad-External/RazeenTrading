@@ -250,7 +250,12 @@ export function WhatsAppButton() {
   return (
     <Button asChild variant="outline">
       <a href="https://wa.me/971588236312">
-        <img src="/whatsapp.webp" alt="" aria-hidden="true" className="size-5 object-contain" />{" "}
+        <img
+          src={`${import.meta.env.BASE_URL}whatsapp.webp`}
+          alt=""
+          aria-hidden="true"
+          className="size-5 object-contain"
+        />{" "}
         WhatsApp us
       </a>
     </Button>
