@@ -1,6 +1,6 @@
 [build]
   command = "bun run build:pages"
-  publish = "dist"
+  publish = ".output/public"
 
 [[redirects]]
   from = "/*"

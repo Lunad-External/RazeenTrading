@@ -95,7 +95,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
@@ -119,8 +118,10 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SiteShell><Outlet /></SiteShell>
-    </QueryClientProvider>
+    <RootShell>
+      <QueryClientProvider client={queryClient}>
+        <SiteShell><Outlet /></SiteShell>
+      </QueryClientProvider>
+    </RootShell>
   );
 }
