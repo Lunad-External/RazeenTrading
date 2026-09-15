@@ -38,10 +38,10 @@ GitHub Pages must be enabled for the repository before the deployment job can cr
 
 1. Create a GitHub repository and push this project to its `main` branch:
 
-	```sh
-	git remote add origin https://github.com/<your-user>/<your-repository>.git
-	git push -u origin main
-	```
+   ```sh
+   git remote add origin https://github.com/<your-user>/<your-repository>.git
+   git push -u origin main
+   ```
 
 2. In GitHub, open **Settings > Pages** and set **Source** to **GitHub Actions**.
 3. Open the **Actions** tab and wait for **Deploy to GitHub Pages** to finish.

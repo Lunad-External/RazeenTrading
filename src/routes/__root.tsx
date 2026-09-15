@@ -79,7 +79,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Razeen Building Materials UAE" },
-      { name: "description", content: "Building materials, tools and supply solutions for construction, repair and maintenance across the UAE." },
+      {
+        name: "description",
+        content:
+          "Building materials, tools and supply solutions for construction, repair and maintenance across the UAE.",
+      },
       { name: "author", content: "Razeen Building Material Trading LLC" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -92,7 +96,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: `${import.meta.env.BASE_URL}favicon.ico`, type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+      },
     ],
   }),
   component: RootComponent,
@@ -120,7 +127,9 @@ function RootComponent() {
   return (
     <RootShell>
       <QueryClientProvider client={queryClient}>
-        <SiteShell><Outlet /></SiteShell>
+        <SiteShell>
+          <Outlet />
+        </SiteShell>
       </QueryClientProvider>
     </RootShell>
   );

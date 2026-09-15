@@ -5,7 +5,97 @@ import { CategoryCard, PageIntro, ProductCard } from "@/components/catalogue-ui"
 import { Input } from "@/components/ui/input";
 import { categories, products } from "@/lib/catalogue";
 
-export const Route = createFileRoute("/products")({ head: () => ({ meta: [
-  { title: "Products | Razeen Building Materials UAE" }, { name: "description", content: "Browse building materials, hardware, power tools, safety products and site essentials." }, { property: "og:title", content: "Products | Razeen Building Materials UAE" }, { property: "og:description", content: "Browse Razeen product categories and send a focused product enquiry." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-] }), component: ProductsPage });
-function ProductsPage() { const [query, setQuery] = useState(""); const [category, setCategory] = useState("all"); const filtered = useMemo(() => products.filter((product) => (category === "all" || product.category === category) && `${product.name} ${product.brand} ${product.spec}`.toLowerCase().includes(query.toLowerCase())), [query, category]); return <><PageIntro eyebrow="Product catalogue" title="Find the right materials and tools" copy="Browse the demonstration catalogue by category or search for a product requirement." /><section className="section-space"><div className="site-container"><div className="relative max-w-xl"><Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products, brands or specifications" aria-label="Search catalogue" className="h-12 pl-12" /></div><div className="mt-6 flex gap-2 overflow-x-auto pb-2">{["all", ...categories.map((item) => item.slug)].map((slug) => <button key={slug} onClick={() => setCategory(slug)} className={`min-h-11 shrink-0 rounded-lg border px-4 text-sm font-bold ${category === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-foreground hover:border-primary"}`}>{slug === "all" ? "All products" : categories.find((item) => item.slug === slug)?.name}</button>)}</div><div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">{filtered.map((product) => <ProductCard key={product.slug} product={product} />)}</div>{filtered.length === 0 && <div className="mt-10 rounded-xl border border-border bg-surface p-10 text-center"><h2 className="font-bold text-primary">No matching sample products</h2><p className="mt-2 text-sm text-muted-foreground">Try another term or <Link to="/quote" className="font-bold text-primary-light">send your exact requirement</Link>.</p></div>}<h2 className="mt-20 text-2xl font-bold text-primary">Browse all categories</h2><div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">{categories.map((item) => <CategoryCard key={item.slug} category={item} />)}</div></div></section></>; }
+export const Route = createFileRoute("/products")({
+  head: () => ({
+    meta: [
+      { title: "Products | Razeen Building Materials UAE" },
+      {
+        name: "description",
+        content:
+          "Browse building materials, hardware, power tools, safety products and site essentials.",
+      },
+      { property: "og:title", content: "Products | Razeen Building Materials UAE" },
+      {
+        property: "og:description",
+        content: "Browse Razeen product categories and send a focused product enquiry.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ProductsPage,
+});
+function ProductsPage() {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all");
+  const filtered = useMemo(
+    () =>
+      products.filter(
+        (product) =>
+          (category === "all" || product.category === category) &&
+          `${product.name} ${product.brand} ${product.spec}`
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+      ),
+    [query, category],
+  );
+  return (
+    <>
+      <PageIntro
+        eyebrow="Product catalogue"
+        title="Find the right materials and tools"
+        copy="Browse the demonstration catalogue by category or search for a product requirement."
+      />
+      <section className="section-space">
+        <div className="site-container">
+          <div className="relative max-w-xl">
+            <Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search products, brands or specifications"
+              aria-label="Search catalogue"
+              className="h-12 pl-12"
+            />
+          </div>
+          <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+            {["all", ...categories.map((item) => item.slug)].map((slug) => (
+              <button
+                key={slug}
+                onClick={() => setCategory(slug)}
+                className={`min-h-11 shrink-0 rounded-lg border px-4 text-sm font-bold ${category === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-foreground hover:border-primary"}`}
+              >
+                {slug === "all"
+                  ? "All products"
+                  : categories.find((item) => item.slug === slug)?.name}
+              </button>
+            ))}
+          </div>
+          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+            {filtered.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+          {filtered.length === 0 && (
+            <div className="mt-10 rounded-xl border border-border bg-surface p-10 text-center">
+              <h2 className="font-bold text-primary">No matching sample products</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Try another term or{" "}
+                <Link to="/quote" className="font-bold text-primary-light">
+                  send your exact requirement
+                </Link>
+                .
+              </p>
+            </div>
+          )}
+          <h2 className="mt-20 text-2xl font-bold text-primary">Browse all categories</h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {categories.map((item) => (
+              <CategoryCard key={item.slug} category={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

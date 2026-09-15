@@ -2,5 +2,84 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Boxes, ClipboardList, Wrench } from "lucide-react";
 import { PageIntro } from "@/components/catalogue-ui";
 import { Button } from "@/components/ui/button";
-export const Route = createFileRoute("/about")({ head: () => ({ meta: [{ title: "About Razeen | Building Materials UAE" }, { name: "description", content: "Learn about Razeen's focused approach to building materials, tools and project supply enquiries in the UAE." }, { property: "og:title", content: "About Razeen | Building Materials UAE" }, { property: "og:description", content: "A practical supply partner for construction, repair and maintenance requirements." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: AboutPage });
-function AboutPage() { const points = [{ icon: Boxes, title: "Broad category access", copy: "A catalogue built around the materials and tools used throughout project lifecycles." }, { icon: ClipboardList, title: "Requirement-led enquiries", copy: "Start with an item, a category or a complete bill of quantities." }, { icon: Wrench, title: "Built for trade needs", copy: "Clear product information and direct routes to a focused conversation." }]; return <><PageIntro eyebrow="About Razeen" title="A clearer way to source project essentials" copy="Razeen Building Material Trading LLC serves the UAE market with an enquiry-first catalogue for construction, repair and maintenance products." /><section className="section-space"><div className="site-container"><div className="grid gap-6 md:grid-cols-3">{points.map(({ icon: Icon, title, copy }) => <article key={title} className="border-t border-primary pt-6"><Icon className="size-7 text-primary-light" /><h2 className="mt-6 text-xl font-bold text-primary">{title}</h2><p className="mt-3 leading-7 text-muted-foreground">{copy}</p></article>)}</div><div className="mt-20 grid gap-10 bg-surface p-8 md:grid-cols-2 md:p-12"><div><p className="text-xs font-bold uppercase text-primary-light">Our direction</p><h2 className="mt-3 text-3xl font-bold text-primary">Simple to browse. Ready to grow.</h2></div><div><p className="leading-7 text-muted-foreground">The catalogue is organized to help buyers discover products now, while supporting deeper specifications, inventory and purchasing capabilities in the future.</p><Button asChild className="mt-6"><Link to="/quote">Discuss a requirement <ArrowRight /></Link></Button></div></div></div></section></>; }
+export const Route = createFileRoute("/about")({
+  head: () => ({
+    meta: [
+      { title: "About Razeen | Building Materials UAE" },
+      {
+        name: "description",
+        content:
+          "Learn about Razeen's focused approach to building materials, tools and project supply enquiries in the UAE.",
+      },
+      { property: "og:title", content: "About Razeen | Building Materials UAE" },
+      {
+        property: "og:description",
+        content:
+          "A practical supply partner for construction, repair and maintenance requirements.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: AboutPage,
+});
+function AboutPage() {
+  const points = [
+    {
+      icon: Boxes,
+      title: "Broad category access",
+      copy: "A catalogue built around the materials and tools used throughout project lifecycles.",
+    },
+    {
+      icon: ClipboardList,
+      title: "Requirement-led enquiries",
+      copy: "Start with an item, a category or a complete bill of quantities.",
+    },
+    {
+      icon: Wrench,
+      title: "Built for trade needs",
+      copy: "Clear product information and direct routes to a focused conversation.",
+    },
+  ];
+  return (
+    <>
+      <PageIntro
+        eyebrow="About Razeen"
+        title="A clearer way to source project essentials"
+        copy="Razeen Building Material Trading LLC serves the UAE market with an enquiry-first catalogue for construction, repair and maintenance products."
+      />
+      <section className="section-space">
+        <div className="site-container">
+          <div className="grid gap-6 md:grid-cols-3">
+            {points.map(({ icon: Icon, title, copy }) => (
+              <article key={title} className="border-t border-primary pt-6">
+                <Icon className="size-7 text-primary-light" />
+                <h2 className="mt-6 text-xl font-bold text-primary">{title}</h2>
+                <p className="mt-3 leading-7 text-muted-foreground">{copy}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-20 grid gap-10 bg-surface p-8 md:grid-cols-2 md:p-12">
+            <div>
+              <p className="text-xs font-bold uppercase text-primary-light">Our direction</p>
+              <h2 className="mt-3 text-3xl font-bold text-primary">
+                Simple to browse. Ready to grow.
+              </h2>
+            </div>
+            <div>
+              <p className="leading-7 text-muted-foreground">
+                The catalogue is organized to help buyers discover products now, while supporting
+                deeper specifications, inventory and purchasing capabilities in the future.
+              </p>
+              <Button asChild className="mt-6">
+                <Link to="/quote">
+                  Discuss a requirement <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

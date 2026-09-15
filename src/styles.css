@@ -156,9 +156,20 @@
     text-rendering: optimizeLegibility;
   }
 
-  html { scroll-behavior: smooth; }
-  ::selection { background: var(--accent); color: var(--accent-foreground); }
-  button, a, input, textarea, select { letter-spacing: 0; }
+  html {
+    scroll-behavior: smooth;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    letter-spacing: 0;
+  }
 }
 
 @utility site-container {
@@ -166,11 +177,17 @@
   max-width: 80rem;
   margin-inline: auto;
   padding-inline: 1rem;
-  @media (min-width: 40rem) { padding-inline: 1.5rem; }
-  @media (min-width: 64rem) { padding-inline: 2rem; }
+  @media (min-width: 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 64rem) {
+    padding-inline: 2rem;
+  }
 }
 
 @utility section-space {
   padding-block: 4rem;
-  @media (min-width: 64rem) { padding-block: 5rem; }
+  @media (min-width: 64rem) {
+    padding-block: 5rem;
+  }
 }
