@@ -34,6 +34,8 @@ Open `http://localhost:8080/`.
 
 The repository includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml`. It builds the static client with `bun run build:pages`, creates the SPA fallback required for direct links, and deploys the `dist` folder.
 
+GitHub Pages must be enabled for the repository before the deployment job can create a deployment. On GitHub Free, Pages for a private repository is unavailable; make the repository public or use a GitHub plan that supports private Pages.
+
 1. Create a GitHub repository and push this project to its `main` branch:
 
 	```sh
