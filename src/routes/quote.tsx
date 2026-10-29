@@ -4,6 +4,7 @@ import { PageIntro, QuoteForm } from "@/components/catalogue-ui";
 export const Route = createFileRoute("/quote")({
   validateSearch: (search: Record<string, unknown>) => ({
     product: typeof search.product === "string" ? search.product : "",
+    ...(typeof search["quantity"] === "number" && { quantity: search["quantity"] }),
   }),
   head: () => ({
     meta: [
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/quote")({
   component: QuotePage,
 });
 function QuotePage() {
-  const { product } = Route.useSearch();
+  const { product, quantity } = Route.useSearch();
   return (
     <>
       <PageIntro
@@ -54,7 +55,10 @@ function QuotePage() {
             </ol>
           </aside>
           <div className="rounded-xl border border-border p-6 md:p-8">
-            <QuoteForm initialProduct={product} />
+            <QuoteForm
+              initialProduct={product}
+              initialQuantity={quantity ? String(quantity) : ""}
+            />
           </div>
         </div>
       </section>

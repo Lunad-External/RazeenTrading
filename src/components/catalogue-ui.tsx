@@ -146,9 +146,11 @@ export function ReassuranceStrip() {
 export function QuoteForm({
   compact = false,
   initialProduct = "",
+  initialQuantity = "",
 }: {
   compact?: boolean;
   initialProduct?: string;
+  initialQuantity?: string;
 }) {
   const [sent, setSent] = useState(false);
   function submit(event: FormEvent) {
@@ -198,7 +200,7 @@ export function QuoteForm({
       {!compact && (
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Quantity">
-            <Input name="quantity" />
+            <Input name="quantity" defaultValue={initialQuantity} />
           </Field>
           <Field label="Attach BOQ">
             <label className="flex h-12 cursor-pointer items-center gap-3 rounded-lg border border-input px-4 text-sm text-muted-foreground hover:border-primary">
