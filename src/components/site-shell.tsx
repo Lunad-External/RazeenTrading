@@ -101,7 +101,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 alt="Razeen Building Materials Trading LLC"
                 width={320}
                 height={100}
-                className="h-14 w-auto rounded bg-white object-contain"
+                className="h-26 w-auto rounded bg-white object-contain"
               />
               <p className="mt-4 max-w-md text-sm leading-6 text-primary-foreground/75">
                 Building materials, tools and supply solutions for construction, repair and
