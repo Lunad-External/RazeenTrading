@@ -18,7 +18,7 @@ export function BrandMark() {
         alt="Razeen Building Materials Trading LLC"
         width={320}
         height={100}
-        className="h-14 w-auto object-contain"
+        className="h-20 w-auto object-contain"
       />
     </Link>
   );
