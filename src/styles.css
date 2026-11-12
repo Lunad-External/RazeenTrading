@@ -170,6 +170,13 @@
   select {
     letter-spacing: 0;
   }
+
+  button:not(:disabled),
+  a[href] {
+    cursor: pointer;
+    transition-duration: 200ms;
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  }
 }
 
 @utility site-container {

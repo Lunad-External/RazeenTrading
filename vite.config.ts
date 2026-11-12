@@ -5,9 +5,17 @@
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 
 const repositoryName = process.env["GITHUB_REPOSITORY"]?.split("/")[1];
 const base = process.env["VITE_BASE_PATH"] ?? (repositoryName ? `/${repositoryName}/` : "/");
+const catalogueData = JSON.parse(readFileSync(path.resolve("src/data/catalogue.json"), "utf8")) as {
+  products: Array<{ category: string; slug: string }>;
+};
+const productPages = catalogueData.products.map(({ category, slug }) => ({
+  path: `/products/${category}/${slug}`,
+}));
 
 export default defineConfig({
   tanstackStart: {
@@ -33,12 +41,7 @@ export default defineConfig({
       { path: "/products/welding" },
       { path: "/products/adhesives-sealants" },
       { path: "/products/safety" },
-      { path: "/products/power-tools/professional-cordless-drill" },
-      { path: "/products/power-tools/heavy-duty-circular-saw" },
-      { path: "/products/hand-tools/general-purpose-hand-tool-set" },
-      { path: "/products/safety/site-safety-kit" },
-      { path: "/products/building-materials/concrete-building-blocks" },
-      { path: "/products/hardware/assorted-fastener-pack" },
+      ...productPages,
     ],
     spa: { enabled: false },
   },

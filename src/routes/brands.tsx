@@ -1,14 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageIntro } from "@/components/catalogue-ui";
-const brands = ["TradePro", "BuildMaster", "Workline", "SafeWorks", "CoreBuild", "FixRight"];
+import { products } from "@/lib/catalogue";
+
+const brands = Array.from(
+  new Set(
+    products.flatMap((product) => {
+      const supplied = product.attributes["Brands Supplied"];
+      const suppliedBrands = Array.isArray(supplied) ? supplied : supplied ? [supplied] : [];
+      return [...suppliedBrands, product.brand, product.manufacturer].filter(
+        (value): value is string => Boolean(value),
+      );
+    }),
+  ),
+).sort();
 export const Route = createFileRoute("/brands")({
   head: () => ({
     meta: [
       { title: "Brands | Razeen Building Materials UAE" },
       {
         name: "description",
-        content:
-          "Explore the demonstration brand structure for Razeen's building materials and tools catalogue.",
+        content: "Explore brands and manufacturers listed in Razeen's supplied product catalogues.",
       },
       { property: "og:title", content: "Brands | Razeen Building Materials UAE" },
       {
@@ -27,7 +38,7 @@ function BrandsPage() {
       <PageIntro
         eyebrow="Brands"
         title="Product ranges, clearly organized"
-        copy="This demonstration uses placeholder brand names until Razeen’s approved manufacturers and distribution partners are supplied."
+        copy="Brands and manufacturers are taken directly from the supplied product catalogues."
       />
       <section className="section-space">
         <div className="site-container grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">

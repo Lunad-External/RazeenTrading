@@ -32,19 +32,31 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="site-container grid h-20 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:flex">
           <BrandMark />
           <nav className="ml-auto hidden items-center gap-7 lg:flex" aria-label="Main navigation">
-            {nav.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="text-sm font-semibold text-foreground transition-colors hover:text-primary-light"
-                activeProps={{ className: "text-primary-light" }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {nav.map((item) =>
+              item.to === "/products" ? (
+                <Link
+                  key={item.to}
+                  to="/products"
+                  search={{ q: "", category: "all", page: 1 }}
+                  className="text-sm font-semibold text-foreground transition-colors hover:text-primary-light"
+                  activeProps={{ className: "text-primary-light" }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="text-sm font-semibold text-foreground transition-colors hover:text-primary-light"
+                  activeProps={{ className: "text-primary-light" }}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             <Link
               to="/products"
-              search={{ q: "" }}
+              search={{ q: "", category: "all", page: 1 }}
               aria-label="Search products"
               className="grid size-11 place-items-center rounded-lg text-primary hover:bg-secondary"
             >
@@ -72,16 +84,28 @@ export function SiteShell({ children }: { children: ReactNode }) {
             aria-label="Mobile navigation"
           >
             <div className="mx-auto flex max-w-lg flex-col gap-1">
-              {nav.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="rounded-lg px-4 py-3 font-semibold hover:bg-secondary"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {nav.map((item) =>
+                item.to === "/products" ? (
+                  <Link
+                    key={item.to}
+                    to="/products"
+                    search={{ q: "", category: "all", page: 1 }}
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg px-4 py-3 font-semibold hover:bg-secondary"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg px-4 py-3 font-semibold hover:bg-secondary"
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
               <Button asChild className="mt-3">
                 <Link to="/quote" search={{ product: "" }} onClick={() => setOpen(false)}>
                   Request a Quote
@@ -118,7 +142,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div>
               <p className="font-bold">Explore</p>
               <div className="mt-4 grid gap-3 text-sm text-primary-foreground/75">
-                <Link to="/products">Products</Link>
+                <Link to="/products" search={{ q: "", category: "all", page: 1 }}>
+                  Products
+                </Link>
                 <Link to="/brands">Brands</Link>
                 <Link to="/about">About Us</Link>
               </div>

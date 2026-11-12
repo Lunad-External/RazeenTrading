@@ -37,6 +37,7 @@ export function CategoryCard({ category }: { category: Category }) {
     <Link
       to="/products/$category"
       params={{ category: category.slug }}
+      search={{ page: 1 }}
       className="group overflow-hidden rounded-xl border border-border bg-card transition hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="aspect-4/3 overflow-hidden bg-surface">
@@ -78,7 +79,9 @@ export function ProductCard({ product }: { product: Product }) {
         />
       </Link>
       <div className="flex flex-1 flex-col p-5">
-        <p className="text-xs font-bold uppercase text-primary-light">{product.brand}</p>
+        <p className="text-xs font-bold uppercase text-primary-light">
+          {product.brand ?? product.source.vendor}
+        </p>
         <h3 className="mt-2 font-bold text-primary">
           <Link
             to="/products/$category/$product"
@@ -87,7 +90,7 @@ export function ProductCard({ product }: { product: Product }) {
             {product.name}
           </Link>
         </h3>
-        <p className="mt-2 text-sm text-muted-foreground">{product.spec}</p>
+        <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{product.summary}</p>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           <Link
             to="/products/$category/$product"

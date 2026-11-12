@@ -11,14 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ProductCard, WhatsAppButton } from "@/components/catalogue-ui";
-import { categories, getProduct, products } from "@/lib/catalogue";
-// Placeholder attributes shared by every product until real data is supplied.
-const attributes = [
-  { label: "Material", value: "Premium grade" },
-  { label: "Origin", value: "Imported" },
-  { label: "Availability", value: "In stock" },
-  { label: "Supply", value: "UAE-wide" },
-];
+import { categories, formatAttributeValue, getProduct, products } from "@/lib/catalogue";
 export const Route = createFileRoute("/products/$category/$product")({
   loader: ({ params }) => {
     const product = getProduct(params.product);
@@ -49,10 +42,9 @@ export const Route = createFileRoute("/products/$category/$product")({
 function ProductPage() {
   const product = Route.useLoaderData();
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(product.images[0] ?? product.image);
   const categoryName =
     categories.find((item) => item.slug === product.category)?.name ?? "Products";
-  // Placeholder SKU derived from catalogue order until real SKUs exist.
-  const sku = `RZN-${String(products.findIndex((item) => item.slug === product.slug) + 1).padStart(5, "0")}`;
   const related = products
     .filter((item) => item.category === product.category && item.slug !== product.slug)
     .slice(0, 4);
@@ -69,7 +61,11 @@ function ProductPage() {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/products/$category" params={{ category: product.category }}>
+                <Link
+                  to="/products/$category"
+                  params={{ category: product.category }}
+                  search={{ page: 1 }}
+                >
                   {categoryName}
                 </Link>
               </BreadcrumbLink>
@@ -83,36 +79,50 @@ function ProductPage() {
         <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-14">
           <div className="aspect-square overflow-hidden rounded-xl border border-border bg-white lg:sticky lg:top-28 lg:self-start">
             <img
-              src={product.image}
+              src={selectedImage}
               alt={product.name}
               width={1000}
               height={1000}
               className="h-full w-full object-cover"
             />
           </div>
+          {product.images.length > 1 && (
+            <div className="flex gap-3 overflow-x-auto lg:col-start-1 lg:row-start-2">
+              {product.images.map((image) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setSelectedImage(image)}
+                  className={`size-20 shrink-0 overflow-hidden rounded-lg border bg-white ${selectedImage === image ? "border-primary" : "border-border"}`}
+                  aria-label={`View image of ${product.name}`}
+                >
+                  <img src={image} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
           <div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
               <h1 className="text-balance text-3xl font-extrabold uppercase text-primary md:text-4xl xl:text-5xl">
                 {product.name}
               </h1>
               <span className="rounded-md bg-success/15 px-2.5 py-1 text-xs font-bold text-success">
-                In Stock
+                Catalogue item
               </span>
             </div>
-            <ul className="mt-5 grid max-w-prose gap-2 text-foreground">
-              {product.specs.slice(0, 3).map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-            <p className="mt-5 flex flex-wrap gap-x-8 gap-y-1 text-muted-foreground">
-              <span>SKU: {sku}</span>
-              <span>Brand: {product.brand}</span>
+            <p className="mt-5 max-w-prose whitespace-pre-line leading-7 text-muted-foreground">
+              {product.description ?? product.summary}
             </p>
-            <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border">
-              {attributes.map(({ label, value }) => (
+            <p className="mt-5 flex flex-wrap gap-x-8 gap-y-1 text-muted-foreground">
+              {product.brand && <span>Brand: {product.brand}</span>}
+              {product.manufacturer && <span>Manufacturer: {product.manufacturer}</span>}
+              <span>Supplier: {product.source.vendor}</span>
+            </p>
+            <dl className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
+              {Object.entries(product.attributes).map(([label, value]) => (
                 <div key={label} className="bg-card p-4">
                   <dt className="text-sm font-semibold text-muted-foreground">{label}</dt>
-                  <dd className="mt-1 font-bold text-primary">{value}</dd>
+                  <dd className="mt-1 font-bold text-primary">{formatAttributeValue(value)}</dd>
                 </div>
               ))}
             </dl>
